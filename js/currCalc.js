@@ -1,7 +1,15 @@
-var api = "https://api.exchangerate-api.com/v4/latest/USD"
-var res = fetch(api)
-.then(response => {
+var url = "https://api.exchangerate-api.com/v4/latest/USD";
+
+fetch(url)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
         return response.json();
-    }
-);
-console.log(res);
+    })
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    });
