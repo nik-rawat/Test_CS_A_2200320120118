@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/login.css">
+    <script src="../js/currCalc.js" defer></script>
     <title>Currency Calculator</title>
 </head>
 <body>
@@ -17,10 +18,37 @@
                 <option value="USD">USD</option>
                 <option value="EUR">EUR</option>
             </select>
-            <label for="convert">Convert</label>
-            <input type="number" name="convert" id="convert" required>
-            <input type="button" value="submit">
+            <label for="to">To</label>
+            <select name="to" id="to"> <!-- Changed name from "from" to "to" -->
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+            </select>
+            <button type="button" onclick="convertCurrency()">Convert</button> <!-- Changed function name -->
+            <span id="result"></span>
         </form>
     </div>
+    <script>
+        var url = "https://api.exchangerate-api.com/v4/latest/";
+        
+        function convertCurrency() {
+            var from = document.getElementById("from").value;
+            var to = document.getElementById("to").value;
+            var amount = document.getElementById("amount").value;
+
+            fetch(url + from)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById("result").innerHTML = (data.rates[to] * amount).toFixed(2); // Fixed to 2 decimal places
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        }
+    </script>
 </body>
 </html>
