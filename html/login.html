@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/login.css">
+    <title>Login</title>
+</head>
+<body>
+    <div class="container">
+        <div class="form">
+            <form method="post" action="./currCalc.html" onsubmit="validation()">
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password">
+                <input type="submit" value="submit">
+            </form>
+        </div>
+    </div>
+    <script>
+        function validation () {
+            const name = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            if (name === "admin" && password === "admin") {
+                alert("Login Successful");
+                return true;
+            } 
+            else if (name === "" && password === "") {
+                alert("Please enter your username and password");
+                return false;
+            }
+            else {
+                alert("Login Failed");
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>
